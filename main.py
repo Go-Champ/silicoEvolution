@@ -1,6 +1,7 @@
 # this is the main file to create the individuals and run the simulation 
 
 # importing libraries 
+import csv
 
 class population:
     def __init__(self, freq, domoinant = True):
@@ -35,11 +36,22 @@ fitness_AA = 1
 fitness_Aa = 0.4
 fitness_aa = 0.2
 
+# opening file to store data
+
+
 # assinging the fitness values to pop1
 pop1.set_fitness(fitness_AA, fitness_Aa, fitness_aa)
 
-# # simulating generations
-# for i in total_generations:
-#     current_AA = pop1.genotype_freq_AA*fitness_AA
-#     current_Aa = pop1.genotype_freq_Aa*fitness_Aa
-#     current_aa = pop1.genotype_freq_aa*fitness_aa
+# simulating generations
+for generation in range(total_generations):
+    pop1.genotype_freq_AA = pop1.genotype_freq_AA*fitness_AA
+    pop1.genotype_freq_Aa = pop1.genotype_freq_Aa*fitness_Aa
+    pop1.genotype_freq_aa = pop1.genotype_freq_aa*fitness_aa
+    current_A = (pop1.genotype_freq_AA/pop1.mean_fitness)+(pop1.genotype_freq_Aa/2*pop1.mean_fitness)
+    current_a = (pop1.genotype_freq_aa/pop1.mean_fitness)+(pop1.genotype_freq_Aa/2*pop1.mean_fitness)
+
+    data = [generation, current_A, current_a, pop1.genotype_freq_AA, pop1.genotype_freq_Aa, pop1.genotype_freq_aa]
+    with open('data.csv', 'a') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerow(data)
+    generation = generation+1
