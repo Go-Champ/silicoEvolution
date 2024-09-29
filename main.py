@@ -1,5 +1,7 @@
 # this is the main file to create the individuals and run the simulation 
 
+# importing libraries 
+
 class population:
     def __init__(self, freq, domoinant = True):
         if domoinant:
